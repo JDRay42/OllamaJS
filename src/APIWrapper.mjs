@@ -35,7 +35,7 @@ class OllamaAPIWrapper {
             if (!prompt) {
                 throw new Error('Prompt is required.');
             }
-            
+
             if (!availableModels.includes(selectedModel)) {
                 throw new Error(`Model ${selectedModel} is not available. Available models are: ${availableModels.join(', ')}`);
             }
@@ -109,20 +109,39 @@ class OllamaAPIWrapper {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ source, destination }),
         });
-        return await response.json();
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Failed to copy model: ${response.statusText}, ${errorText}`);
+        }
+
+        // Since the server doesn't return a body on success, 
+        // just return a success message or the status code.
+        return { status: 'success', code: response.status };
     }
+
 
     /**
      * Deletes a model.
-     * @param {string} model - The model name to delete.
+     * @param {string} modelName - The model name to delete.
      * @returns {Promise<Object>} A promise that resolves to the API response.
      */
-    async deleteModel(model) {
+    async deleteModel(modelName) {
         const response = await fetch(`${this.apiEndpoint}delete`, {
             method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ model }),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: modelName })
         });
-        return await response.json();
-    }
+    
+        if (response.status === 200) {
+            return { status: 'success', code: response.status };
+        } else {
+            console.error('Unexpected response status:', response.status);
+            throw new Error(`Failed to delete model: ${response.statusText}`);
+        }
+    }    
 }
+
+export default OllamaAPIWrapper;
