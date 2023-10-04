@@ -2,7 +2,7 @@
   "name": "ollamajs",
   "version": "0.5.0",
   "description": "An API wrapper for the Ollama API.",
-  "main": "index.js",
+  "main": "lib/index.js",
   "directories": {
     "lib": "lib",
     "test": "test"

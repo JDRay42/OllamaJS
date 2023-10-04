@@ -4,8 +4,11 @@
  * @param {string} [defaultModel=null] - The default model to use.
  * @returns {API} An instance of the API wrapper.
  */
+
+import OllamaAPIWrapper from './APIWrapper.mjs';
+
 function createAPI(apiEndpoint = 'http://localhost:11434/api/', defaultModel = null) {
-    return new API(apiEndpoint, defaultModel);
+    return new OllamaAPIWrapper(apiEndpoint, defaultModel);
 }
 
 /**
