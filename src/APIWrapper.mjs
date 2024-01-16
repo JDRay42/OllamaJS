@@ -1,10 +1,12 @@
+import fetch from 'node-fetch';
+
 /**
  * A wrapper class for interacting with the Ollama API.
  */
 class OllamaAPIWrapper {
     /**
      * Creates an instance of OllamaAPIWrapper.
-     * @param {string} [apiEndpoint='http://localhost:11434/api/'] - The API endpoint.
+     * @param {string} [apiEndpoint='http://127.0.0.1:11434/api/'] - The API endpoint.
      * @param {string} [defaultModel=null] - The default model to use.
      */
     constructor(apiEndpoint = 'http://localhost:11434/api/', defaultModel = null) {

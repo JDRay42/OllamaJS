@@ -1,9 +1,8 @@
-import OllamaAPIWrapper from '../src/APIWrapper.mjs';
-
+const ollama = require('ollamajs');
 let availableModels = [];
 
 beforeAll(async () => {
-    const api = new OllamaAPIWrapper();
+    const api = ollama.createAPI;
     availableModels = await api.getAvailableModels();
     console.log('Available models: ', availableModels);
     jest.spyOn(console, 'error').mockImplementation(() => {});
@@ -23,6 +22,7 @@ test(`getResponse returns text for a given prompt with first model: ${availableM
     const api = new OllamaAPIWrapper();
     const prompt = 'Suggest me a book to read';
     const response = await api.getResponse(prompt, availableModels[0]);
+    console.log('Response: ', response);
     expect(typeof response).toBe('string');
     expect(response.length).toBeGreaterThan(0);
 }, 

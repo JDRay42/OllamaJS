@@ -1,13 +1,13 @@
 /**
  * Creates and returns an instance of the API wrapper.
- * @param {string} [apiEndpoint='http://localhost:11434/api/'] - The API endpoint.
+ * @param {string} [apiEndpoint='http://127.0.0.1:11434/api/'] - The API endpoint.
  * @param {string} [defaultModel=null] - The default model to use.
  * @returns {API} An instance of the API wrapper.
  */
 
 import OllamaAPIWrapper from './APIWrapper.mjs';
 
-function createAPI(apiEndpoint = 'http://localhost:11434/api/', defaultModel = null) {
+function createAPI(apiEndpoint = 'http://127.0.0.1:11434/api/', defaultModel = null) {
     return new OllamaAPIWrapper(apiEndpoint, defaultModel);
 }
 
